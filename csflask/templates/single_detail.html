@@ -1,0 +1,27 @@
+{% extends 'corylayout.html' %}
+{% block content%}
+    <article class="media content-section">
+        <img src="{{ url_for('static', filename='img/' + detail.creator.image_file)}}" class="rounded-circle article-img" alt="profile">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class='mr-2' href='#'> {{ detail.account_name }} </a>
+                <small class="text-muted"> {{ detail.date_added }}</small>
+                {% if detail.creator == current_user %}
+                    <div>
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('details.update_detail', detail_id=detail.id ) }}">Update</a>
+                        <form action="{{ url_for('details.delete_detail', detail_id=detail.id ) }}" method="POST">
+                            <input class="btn btn-danger btn-sm mt-1 mb-1" type="submit", value="Delete">
+                        </form>
+                        <button type="button", class="btn btn-danger btn-sm m-1">Delete</button>
+                    </div>
+                {% else %}
+                    <h3>You don't have permission to delete this account detail</h3>
+                {% endif %}
+            </div>
+            <h3 class="article-title">{{ detail.site_name }}</h3>
+            <p class="article-content">{{ detail.site_email }}</p>
+            <p class="article-content">{{ detail.site_password }}</p>
+        </div>
+        
+    </article>
+{% endblock content %}

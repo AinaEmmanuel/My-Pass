@@ -1,0 +1,18 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/error.css') }}">
+</head>
+
+{% extends 'corylayout.html' %}
+
+{% block content %}
+<h1>Permission Denied: (403 error)</h1>
+<p class="zoom-area"><b>You do not have permission to access this page. Please return to home page</b></p>
+<section class="error-container">
+  <span>4</span>
+  <span><span class="screen-reader-text">0</span></span>
+  <span>4</span>
+</section>
+<div class="link-container">
+  <a href="{{ url_for('main.home') }}" class="more-link">Back to Homepage</a>
+</div>
+{% endblock content%}

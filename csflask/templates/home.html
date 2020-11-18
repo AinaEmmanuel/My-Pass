@@ -1,0 +1,39 @@
+{% extends 'corylayout.html' %}
+{% block content%}
+    {% for detail in details.items %}
+    {% if detail.creator == current_user %}
+    <article class="media content-section">
+        <img src="{{ url_for('static', filename='img/' + detail.creator.image_file)}}" class="rounded-circle article-img" alt="">
+        <div class="media-body">
+            <div class="article-metadata">
+                <p class='mr-2' href='#'>Username: {{ detail.account_name }} </p>
+                <small class="text-muted"> {{ detail.date_added.strftime('%d-%m-%Y') }}</small>
+                {% if detail.creator == current_user %}
+                <div>
+                    <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('update_detail', detail_id = detail.id) }}">Update</a>
+                    <a class="btn btn-danger btn-sm m-1" href="{{ url_for('delete_detail', detail_id=detail.id) }}">Delete</a> 
+                </div>
+                {% else %}
+                {% endif %}
+            </div>
+            <!-- <h3><a class="article-title" href="https://{{ detail.site_name }}.com">{{ detail.site_name }}</a></h3> -->
+            <h3><a class="article-title" href="#">{{ detail.site_name }}</a></h3>
+            <p class="article-content">{{ detail.site_email }}</p>
+            <p class="article-content">{{ detail.site_password }}</p>
+            <!-- <button class="btn btn-info "><a href="">Update</a></button> -->
+        </div>
+    </article>
+    {% endif %}
+    {% endfor %}
+
+    {% for page_num in details.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if details.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num) }}"> {{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num) }}"> {{ page_num }}</a>
+            {% endif %}
+        {% else %}
+        {% endif %}
+    {% endfor %}
+{% endblock content %}

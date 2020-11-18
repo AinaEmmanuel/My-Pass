@@ -1,0 +1,92 @@
+{% extends 'layout_for_home2.html' %}
+
+{% block body %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages%}
+        <div class="alert alert-warning alert-dismissible container" role="alert" id="flash">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h5>{{message}}</h5>
+        </div>
+        {%endfor%}
+    {%endif%}
+{% endwith %}
+
+  <!-- Masthead -->
+  <header class="masthead text-blue text-center">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <h1 class="mb-5" style="color: white;">Password Managing made easy!</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Icons Grid -->
+  <section class="features-icons bg-light text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-screen-desktop m-auto text-primary"></i>
+            </div>
+            <h3>Fully Responsive</h3>
+            <p class="lead mb-0">This Site will look great on any device, no matter the size!</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-layers m-auto text-primary"></i>
+            </div>
+            <h3>Relaible Database</h3>
+            <p class="lead mb-0">All passwords and accounts are well protected and encrypted</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-check m-auto text-primary"></i>
+            </div>
+            <h3>Easy to Use</h3>
+            <p class="lead mb-0">Basic user interface for pleasant experience!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="call-to-action text-white text-center">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <h2 class="mb-4">Ready to get started? Sign up now!</h2>
+          <a href="{{ url_for('users.register') }}" class="btn btn-primary center">
+            Sign up!
+          </a>
+        </div>
+        <!-- <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+          <form action="/register">
+            <div class="form-row">
+              <div class="col-12 col-md-3">
+                
+                <button class="btn btn-block btn-lg btn-primary center">
+                  Sign up!
+                </button>
+
+              </div>
+            </div>
+          </form>
+        </div> -->
+      </div>
+    </div>
+  </section>
+{% endblock%}

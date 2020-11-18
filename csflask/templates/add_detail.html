@@ -1,0 +1,70 @@
+{% extends 'corylayout.html' %}
+{% block content%}
+<form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">{{ legend }}</legend>
+
+        <div class="form-group">
+            {{ form.sitename.label(class='form-control-label') }}
+            {% if form.sitename.errors %}
+                {{ form.sitename(class='form-control form-control-md is-invalid') }}
+                <div class="invalid-feedback">
+                    {% for error in form.sitename.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.sitename(class='form-control form-control-md', placeholder='Facebook / Twitter / Github') }}
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.siteemail.label(class='form-control-label') }}
+            {% if form.siteemail.errors %}
+                {{ form.siteemail(class='form-control form-control-md is-invalid') }}
+                <div class="invalid-feedback">
+                    {% for error in form.siteemail.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.siteemail(class='form-control form-control-md') }}
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.siteusername.label(class='form-control-label') }}
+            {% if form.siteusername.errors %}
+                {{ form.siteusername(class='form-control form-control-md is-invalid') }}
+                <div class="invalid-feedback">
+                    {% for error in form.siteusername.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.siteusername(class='form-control form-control-md') }}
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.sitepassword.label(class='form-control-label') }}
+            {% if form.sitepassword.errors %}
+                {{ form.sitepassword(class='form-control form-control-md is-invalid') }}
+                <div class="invalid-feedback">
+                    {% for error in form.sitepassword.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.sitepassword(class='form-control form-control-md') }}
+            {% endif %}
+        </div>
+
+    </fieldset>
+
+    <div class="form-group">
+        {{ form.submit(class="btn btn-outline-success") }}
+    </div>
+</form>
+{% endblock content %}

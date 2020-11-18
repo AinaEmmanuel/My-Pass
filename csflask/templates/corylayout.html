@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/stat/vendor/fontawesome-free/css/fontawesome.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stat/vendor/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stat/vendor/simple-line-icons/css/simple-line-icons.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    
+    </script>
+    {% if title %}
+        <title>Flask Blog - {{ title }}</title>
+    {% else %}
+        <title>My Pass</title>
+    {% endif %}
+</head>
+<body>
+  <!-- <header class="site-header"> -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top site-header">
+      <div class="container">
+        <a class="navbar-brand mr-4" href="{{ url_for('main.home')}}">MyPass</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+
+          </div>
+          <!-- Navbar Right Side -->
+    
+          <div class="navbar-nav mr-auto">
+            {% if current_user.is_authenticated %}
+              <a class="nav-item nav-link" href="{{ url_for('main.mypasswords')}}">Home</a>
+              <a class="nav-item nav-link" href="{{ url_for('details.new_detail')}}">Add Password</a>
+              <a class="nav-item nav-link" href="{{ url_for('users.myaccount')}}">My Account</a>
+              <a class="nav-item nav-link" href="{{ url_for('users.logout')}}">Logout</a>
+            {% else %}
+              <a class="nav-item nav-link" href="{{ url_for('main.home')}}">Home</a>
+              <a class="nav-item nav-link" href="{{ url_for('users.login')}}">Login</a>
+              <a class="nav-item nav-link" href="{{ url_for('users.register')}}">Register</a>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    </nav>
+  <!-- </header> -->
+
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8">
+
+        <!-- ALerts -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category,message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible" role="alert" id='flash'>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                  {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}
+        {% endblock %}
+
+      </div>
+      
+
+  {% if current_user.is_authenticated %}
+  <div class="col-md-4">
+    <div class="content-section">
+      <h3></h3>
+      <p class='text-muted'>
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-light">You currently have {{ user_details|length }} password saved</li>
+          <!-- <li class="list-group-item list-group-item-light">Announcements</li> -->
+          <li class="list-group-item list-group-item-light">
+            <p>Last Updated: <span id="datetime"></span></p>
+
+              <script>
+              var dt = new Date();
+              document.getElementById("datetime").innerHTML = (("0"+dt.getDate()).slice(-2)) +"/"+ (("0"+(dt.getMonth()+1)).slice(-2)) +"/"+ (dt.getFullYear()) +" "+ (("0"+dt.getHours()).slice(-2)) +":"+ (("0"+dt.getMinutes()).slice(-2));
+              </script>
+            </li>
+          <!-- <li class="list-group-item list-group-item-light">etc</li> -->
+        </ul>
+      </p>
+    </div>
+  </div>
+</div>
+</main>
+{% else %}
+</main>
+{% endif %}
+</body>
+    <!-- Footer -->
+    <!-- <footer class="footer bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item">
+                <a href="#">About</a>
+              </li>
+              <li class="list-inline-item">&sdot;</li>
+              <li class="list-inline-item">
+                <a target="_blank" href="https://twitter.com/aina_emmy">Contact</a>
+              </li>
+            </ul>
+            <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2020. All Rights Reserved.</p>
+          </div>
+          <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-3">
+                <a href="https://www.facebook.com/AinaEmmanuelDamilola">
+                  <i class="fab fa-facebook fa-2x fa-fw"></i>
+                </a>
+              </li>
+              <li class="list-inline-item mr-3">
+                <a href="https://twitter.com/aina_emmy">
+                  <i class="fab fa-twitter-square fa-2x fa-fw"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.instagram.com/ainaemmanuel_/">
+                  <i class="fab fa-instagram fa-2x fa-fw"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer> -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min') }}"></script>    
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='js/flash-out.js') }}"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    
+    <!-- Footer -->
+    <footer class="footer bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item mr-3">
+                  <a target="_blank" href="https://www.facebook.com/AinaEmmanuelDamilola">
+                    <i class="fab fa-facebook fa-2x fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item mr-3">
+                  <a target="_blank" href="https://twitter.com/aina_emmy">
+                    <i class="fab fa-twitter-square fa-2x fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a target="_blank" href="https://www.instagram.com/ainaemmanuel_/">
+                    <i class="fab fa-instagram fa-2x fa-fw"></i>
+                  </a>
+                </li>
+              </ul>
+            <p class="text-muted small mb-4 mb-lg-0">&copy; MyPass 2020. All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+</html>
