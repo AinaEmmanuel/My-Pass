@@ -57,7 +57,16 @@
                     {% endfor %}
                 </div>
             {% else %}
-                {{ form.sitepassword(class='form-control form-control-md') }}
+
+            <div class="input-group">
+                 {{ form.sitepassword(class='form-control form-control-md') }}
+                <span class="input-group-btn"></span>
+                    <button onclick="stogglepass()" class="btn btn-default" type="button">
+                        <i class="far fa-eye" id="togglePassword"></i>
+                    </button>
+                </span> 
+            </div>
+
             {% endif %}
         </div>
 

@@ -11,7 +11,7 @@
 
         <form method="POST" action="" enctype="multipart/form-data">
             <div class="form-group">
-                {{ form.picture.label(for="file-upload", class="btn btn-warning custom-file-upload") }}
+                {{ form.picture.label(for="file-upload", class="btn custom-file-upload") }}
 
                 {{ form.picture(class="form-control-file" ,id="file-upload") }}
                 {% if form.picture.errors %}
