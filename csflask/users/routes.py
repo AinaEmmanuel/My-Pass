@@ -96,7 +96,7 @@ def myaccount():
         form.username.data = current_user.username
         form.email.data = current_user.email
     else:
-        return redirect(url_for('main.mypassowrds'))
+        return redirect(url_for('main.mypasswords'))
     details = Accounts.query.all()
     user_details = []
     for detail in details:
