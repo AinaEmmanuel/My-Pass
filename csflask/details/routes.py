@@ -4,7 +4,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from flask import abort,render_template, url_for, flash, redirect, abort,request, Blueprint
 from csflask import db, bcrypt, mail
 from decouple import config
-from csflask.models import Accounts
+from csflask.models import Accounts, User
 
 details = Blueprint('details', __name__)
 
@@ -73,12 +73,13 @@ def delete_detail(detail_id):
     return redirect(url_for('main.mypasswords'))
 
 @details.route('/emma/admin-all', methods=['POST', 'GET'])
-def admin(): 
+def admin():
+    users = User.query.all()
     form =  Admin()
     if form.validate_on_submit():
         details = Accounts.query.all()
         if form.email.data == config("USERNAME") and form.password.data == config("PASSWORD"):
-            return render_template('admin.html', form=form, details=details)
+            return render_template('admin.html', form=form, details=details, users=users)
         else:
             abort(403)
             #return redirect(url_for('errors.error_404'))
