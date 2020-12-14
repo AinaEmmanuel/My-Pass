@@ -51,13 +51,13 @@ def update_detail(detail_id):
         form.siteemail.data = detail.site_email
         form.sitename.data = detail.site_name
     
-        details = Accounts.query.all()
-        user_details = []
-        for detail in details:
-            if detail.creator == current_user:
-                user_details.append(detail)
-            else:
-                pass
+    details = Accounts.query.all()
+    user_details = []
+    for detail in details:
+        if detail.creator == current_user:
+            user_details.append(detail)
+        else:
+            pass
     
     return render_template('add_detail.html', form=form, title='Update Password', user_details=user_details,legend=f'Update password for { detail.site_name }')
 
