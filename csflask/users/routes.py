@@ -80,18 +80,19 @@ def logout():
 def myaccount():
     form = UpdateAccountForm()
     if form.validate_on_submit():
-        try:
-            if form.picture.data:
-                picture_file = save_picture(form.picture.data)
-            current_user.username = form.username.data
-            current_user.email = form.email.data
+        # try:
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file
-            db.session.commit()
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        
+        db.session.commit()
 
-            flash('Account updated successfully', 'success')
-            return redirect(url_for('users.myaccount'))
-        except UnboundLocalError:
-            return redirect(url_for('main.mypasswords'))
+        flash('Account updated successfully', 'success')
+        return redirect(url_for('users.myaccount'))
+        # except UnboundLocalError:
+        #     return redirect(url_for('main.mypasswords'))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email

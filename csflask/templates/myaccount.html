@@ -9,18 +9,8 @@
             </div>
         </div>
 
+        
         <form method="POST" action="" enctype="multipart/form-data">
-            <div class="form-group">
-                {{ form.picture.label(for="file-upload", class="btn custom-file-upload") }}
-
-                {{ form.picture(class="form-control-file" ,id="file-upload") }}
-                {% if form.picture.errors %}
-                    {% for error in form.picture.errors %}
-                        <span class="text-danger">{{ error }}</span><br>
-                    {% endfor %}
-                {% endif %}
-            </div>
-
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Update Account Info</legend>
@@ -55,7 +45,18 @@
                 </div>
 
                 <div class="form-group">
-                    {{ form.submit(class="btn btn-outline-info") }}
+                    {{ form.picture.label(for="file-upload", class="btn custom-file-upload") }}
+
+                    {{ form.picture(class="form-control-file" ,id="file-upload") }}
+                    {% if form.picture.errors %}
+                        {% for error in form.picture.errors %}
+                            <span class="text-danger">{{ error }}</span><br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info", type='submit') }}
                 </div>
             </fieldset>
     
