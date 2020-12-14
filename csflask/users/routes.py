@@ -85,7 +85,7 @@ def myaccount():
             picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file
         current_user.username = form.username.data
-        current_user.email = form.email.data
+        # current_user.email = form.email.data
         
         db.session.commit()
 
@@ -95,10 +95,11 @@ def myaccount():
         #     return redirect(url_for('main.mypasswords'))
     elif request.method == 'GET':
         form.username.data = current_user.username
-        form.email.data = current_user.email
+        # form.email.data = current_user.email
     else:
         return redirect(url_for('main.mypasswords'))
     details = Accounts.query.all()
+
     user_details = []
     for detail in details:
         if detail.creator == current_user:
