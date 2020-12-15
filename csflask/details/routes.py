@@ -28,7 +28,7 @@ def new_detail():
             user_details.append(detail)
         else:
             pass
-    return render_template('add_detail.html', user_details=user_details,form=form, legend='Add new password')
+    return render_template('add_detail.html', user_details=user_details,form=form, legend='Add new password',title='New Detail')
 
 @details.route('/detail/<int:detail_id>/update', methods=['POST', 'GET'])
 @login_required

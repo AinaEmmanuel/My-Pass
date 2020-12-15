@@ -26,7 +26,7 @@ def register():
 
         flash(f'An email has been sent to {form.email.data} for verification purpose.', 'info')
         return redirect(url_for('users.verify'))
-    return render_template('register.html', form=form)
+    return render_template('register.html', form=form, title='Register')
     
 @users.route('/verify', methods=['POST', 'GET'])
 def verify():
@@ -107,7 +107,7 @@ def myaccount():
         else:
             pass
     image_file = url_for('static', filename='img/'+current_user.image_file)
-    return render_template('myaccount.html',user_details=user_details ,image_file=image_file, form=form)
+    return render_template('myaccount.html',user_details=user_details ,image_file=image_file, form=form, title='Account Info')
 
 
 @users.route('/reset_password', methods=['GET', 'POST'])

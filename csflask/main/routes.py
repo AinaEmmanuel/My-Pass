@@ -26,4 +26,4 @@ def mypasswords():
 
 @main.route('/')
 def home():
-    return render_template('home2.html')
+    return render_template('home2.html', title='Home')

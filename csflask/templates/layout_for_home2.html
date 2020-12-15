@@ -41,6 +41,11 @@
 
 	  gtag('config', 'UA-173373247-2');
 	</script>
+	    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>My Pass</title>
+    {% endif %}
 	{% block head %}{% endblock %}
 </head>
 <body>
