@@ -6,12 +6,12 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgb(255, 242, 242);
-  opacity: 0.5;
+  background-color: rgb(255, 255, 255);
+  opacity: 0.8;
 }
 
 .loading-wheel {
-  width: 20px;
+  width: 20px;  
   height: 20px;
   margin-top: -40px;
   margin-left: -40px;
