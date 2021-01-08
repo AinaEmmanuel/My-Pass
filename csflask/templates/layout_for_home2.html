@@ -9,6 +9,7 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/loading.css')}}">
 	
     <!-- Core -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo.png')}}">
@@ -30,7 +31,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- CSS -->
-     <link rel="stylesheet" href="{{ url_for('static', filename='stat/css/landing-page.min.css')}}">
+	 <link rel="stylesheet" href="{{ url_for('static', filename='stat/css/landing-page.min.css')}}">
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-173373247-2"></script>
@@ -49,6 +50,8 @@
 	{% block head %}{% endblock %}
 </head>
 <body>
+
+
 	<header class="site-header">
 		<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
 		  <div class="container">
@@ -80,8 +83,19 @@
 	  </header>
 	{% block body %}
 	{% endblock %}
-
+	<div class="loading style-2"><div class="loading-wheel"></div></div>
 </body>
+<script>
+	const loader = document.querySelector(".loading");
+	window.onload = function(){
+	  setTimeout(function(){
+		loader.style.opacity = "0";
+		setTimeout(function(){
+		  loader.style.display = "none";
+		}, 500);
+	  },1500);
+	}
+	</script>
 <!-- Footer -->
 <footer class="footer bg-light">
 	<div class="container">

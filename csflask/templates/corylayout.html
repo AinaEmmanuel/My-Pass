@@ -18,6 +18,7 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo.png')}}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/loading.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='/stat/vendor/fontawesome-free/css/fontawesome.min.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stat/vendor/fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stat/vendor/simple-line-icons/css/simple-line-icons.css')}}">
@@ -31,7 +32,9 @@
         <title>My Pass</title>
     {% endif %}
 </head>
+
 <body style="background-image: {{ url_for('static', filename='img/logo.png')}};">
+
   <!-- <header class="site-header"> -->
     <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top site-header">
       <div class="container">
@@ -83,6 +86,7 @@
         {% endwith %}
 
         {% block content %}
+        
         {% endblock %}
 
       </div>
@@ -116,13 +120,29 @@
 {% else %}
 </main>
 {% endif %}
+<div class="loading style-2"><div class="loading-wheel"></div></div>
 </body>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script>
+      const loader = document.querySelector(".loading");
+      window.onload = function(){
+        setTimeout(function(){
+          loader.style.opacity = "0";
+          setTimeout(function(){
+            loader.style.display = "none";
+          }, 500);
+        },1500);
+      }
+      </script>
+
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}"></script>
     <!-- <script src="{{ url_for('static', filename='js/flash-out.js') }}"></script> -->
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/loading.js') }}"></script>
     
     <!-- Footer -->
     <footer class="footer bg-light">
