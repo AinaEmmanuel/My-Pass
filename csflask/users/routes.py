@@ -1,5 +1,5 @@
 from flask import Blueprint, session, sessions
-from csflask.users.forms import RegistartionForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPassword, ConfirmEmailForm
+from csflask.users.forms import RegistartionForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPassword, ConfirmEmailForm, RequestResetForm
 from flask_login import login_user, current_user, logout_user, login_required
 from flask import render_template, url_for, flash, redirect, abort,request
 from csflask import db, bcrypt, mail
@@ -117,10 +117,14 @@ def reset_request():
     form = RequestResetForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        send_reset_email(user)
-        flash('The Reset Link has been sent to your email', 'info')
-        return redirect(url_for('users.login'))
-    return render_template('reset_request.html', form=form, title='Request new password')
+
+        x = send_reset_code(form.email.data)
+        session['reset_code'] = x
+
+        # send_reset_email(user)
+        flash('The Reset Code has been sent to your email', 'info')
+        return redirect(url_for('users.reset_token'))
+    return render_template('reset_request.html', form=form, title='Request Code')
 
 @users.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_token(token):
@@ -139,3 +143,26 @@ def reset_token(token):
         flash(f'Your password has been updated successfully!', 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html', form=form, title='Reset Password')
+
+@users.route('/reset_code', methods=['POST', 'GET'])
+def reset_code():
+    x = session.get('reset_code', None)
+    if current_user.is_authenticated:
+        return redirect(url_for('main.mypasswords'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        if form.code.data == str(x):
+            flash(f'Password Reset Successfuly', 'success')
+
+            # mail = session.get('curr_mail', None)
+            # passw = session.get('curr_pass', None)
+            # name = session.get('curr_name', None)
+
+            # user = User(username=name, email=mail, password=passw)
+            # db.session.add(user)
+            # db.session.commit()
+            return redirect(url_for('users.reset_token'))
+        else:
+            flash(f'Invalid verification code. Please check your email and try again', 'danger')
+            return redirect(url_for('users.reset_code'))
+    return render_template('reset_code.html', form=form)
