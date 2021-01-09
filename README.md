@@ -4,7 +4,7 @@ A password managing web application made with Flask
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
-#### Installation and Launching
+#### Installation and Starting
 
 After Downlaoding / Cloning this repo, run the following code in the root directory to install the required libraries and start up the application;
 
