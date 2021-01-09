@@ -1,10 +1,10 @@
 from flask import Blueprint, session, sessions
-from csflask.users.forms import RegistartionForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPassword, ConfirmEmailForm
+from csflask.users.forms import RegistartionForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPassword, ConfirmEmailForm, ResetPasswordCode
 from flask_login import login_user, current_user, logout_user, login_required
 from flask import render_template, url_for, flash, redirect, abort,request
 from csflask import db, bcrypt, mail
 from csflask.models import User, Accounts
-from csflask.users.utils import save_picture, send_reset_email, send_confirm_email
+from csflask.users.utils import save_picture, send_reset_email, send_confirm_email, send_reset_code
 
 users = Blueprint('users', __name__)
 
@@ -110,26 +110,52 @@ def myaccount():
     return render_template('myaccount.html',user_details=user_details ,image_file=image_file, form=form, title='Account Info')
 
 
-@users.route('/reset_password', methods=['GET', 'POST'])
+@users.route('/request_reset_code', methods=['GET', 'POST'])
 def reset_request():
     if current_user.is_authenticated:
         return redirect(url_for('main.mypasswords'))
     form = RequestResetForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        send_reset_email(user)
-        flash('The Reset Link has been sent to your email', 'info')
-        return redirect(url_for('users.login'))
-    return render_template('reset_request.html', form=form, title='Request new password')
 
-@users.route('/reset_password/<token>', methods=['GET', 'POST'])
-def reset_token(token):
+        # Eamil that needs to be reset
+        session['reset_mail'] = form.email.data
+
+        # Get the 6 digit code from a previously defined function
+        x = send_reset_code(form.email.data)
+        session['reset_code'] = x
+
+        # send_reset_email(user)
+        flash('The Reset Code has been sent to your email', 'info')
+        return redirect(url_for('users.reset_code'))
+    return render_template('reset_request.html', form=form, title='Request Code')
+
+
+@users.route('/reset_code', methods=['POST', 'GET'])
+def reset_code():
+    x = session.get('reset_code', None)
     if current_user.is_authenticated:
         return redirect(url_for('main.mypasswords'))
-    user = User.verify_reset_token(token)
+    form = ResetPasswordCode()
+    if form.validate_on_submit():
+        if form.code.data == str(x):
+            flash(f'Password Reset Successfuly', 'success')
+            return redirect(url_for('users.reset_password'))
+        else:
+            flash(f'Invalid verification code. Please check your email and try again', 'danger')
+            return redirect(url_for('users.reset_code'))
+    return render_template('reset_code.html', form=form)
+
+@users.route('/reset_password', methods=['GET', 'POST'])
+def reset_password():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.mypasswords'))
+    reset_mail = session.get('reset_mail', None)
+    user = User.query.filter_by(email=reset_mail).first()
+
     if user is None:
         flash('Invalid or Expired Reset code', 'warning')
-        return redirect(url_for('users.reset_request'))
+        return redirect(url_for('users.reset_code'))
     form = ResetPassword()
     if form.validate_on_submit():
         hashed_pass = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
