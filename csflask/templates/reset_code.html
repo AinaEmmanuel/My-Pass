@@ -1,0 +1,29 @@
+{% extends 'corylayout.html' %}
+{% block content%}
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Password Reset</legend>
+
+            <div class="form-group">
+                {{ form.code.label(class='form-control-label') }}
+                {% if form.code.errors %}
+                    {{ form.code(class='form-control form-control-md is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.code.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.code(class='form-control form-control-md', placeholder='123456') }}
+                {% endif %}
+            </div>
+
+        </fieldset>
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+
+    </form>
+{% endblock content %}

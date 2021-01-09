@@ -1,5 +1,5 @@
 from flask import Blueprint, session, sessions
-from csflask.users.forms import RegistartionForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPassword, ConfirmEmailForm, RequestResetForm
+from csflask.users.forms import RegistartionForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPassword, ConfirmEmailForm, ResetPasswordCode
 from flask_login import login_user, current_user, logout_user, login_required
 from flask import render_template, url_for, flash, redirect, abort,request
 from csflask import db, bcrypt, mail
@@ -127,7 +127,7 @@ def reset_request():
 
         # send_reset_email(user)
         flash('The Reset Code has been sent to your email', 'info')
-        return redirect(url_for('users.reset_token'))
+        return redirect(url_for('users.reset_code'))
     return render_template('reset_request.html', form=form, title='Request Code')
 
 
@@ -136,25 +136,17 @@ def reset_code():
     x = session.get('reset_code', None)
     if current_user.is_authenticated:
         return redirect(url_for('main.mypasswords'))
-    form = ResetPasswordForm()
+    form = ResetPasswordCode()
     if form.validate_on_submit():
         if form.code.data == str(x):
             flash(f'Password Reset Successfuly', 'success')
-
-            # mail = session.get('curr_mail', None)
-            # passw = session.get('curr_pass', None)
-            # name = session.get('curr_name', None)
-
-            # user = User(username=name, email=mail, password=passw)
-            # db.session.add(user)
-            # db.session.commit()
-            return redirect(url_for('users.reset_token'))
+            return redirect(url_for('users.reset_password'))
         else:
             flash(f'Invalid verification code. Please check your email and try again', 'danger')
             return redirect(url_for('users.reset_code'))
     return render_template('reset_code.html', form=form)
 
-@users.route('reset_password/', methods=['GET', 'POST'])
+@users.route('/reset_password', methods=['GET', 'POST'])
 def reset_password():
     if current_user.is_authenticated:
         return redirect(url_for('main.mypasswords'))
