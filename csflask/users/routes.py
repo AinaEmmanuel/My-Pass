@@ -155,7 +155,7 @@ def reset_password():
 
     if user is None:
         flash('Invalid or Expired Reset code', 'warning')
-        return redirect(url_for('users.reset_request'))
+        return redirect(url_for('users.reset_code'))
     form = ResetPassword()
     if form.validate_on_submit():
         hashed_pass = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -165,24 +165,3 @@ def reset_password():
         flash(f'Your password has been updated successfully!', 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html', form=form, title='Reset Password')
-
-
-# @users.route('/reset_password/<token>', methods=['GET', 'POST'])
-# def reset_token(token):
-#     if current_user.is_authenticated:
-#         return redirect(url_for('main.mypasswords'))
-
-    
-#     user = User.verify_reset_token(token)
-#     if user is None:
-#         flash('Invalid or Expired Reset code', 'warning')
-#         return redirect(url_for('users.reset_request'))
-#     form = ResetPassword()
-#     if form.validate_on_submit():
-#         hashed_pass = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-#         user.password = hashed_pass
-#         db.session.commit()
-
-#         flash(f'Your password has been updated successfully!', 'success')
-#         return redirect(url_for('users.login'))
-#     return render_template('reset_token.html', form=form, title='Reset Password')

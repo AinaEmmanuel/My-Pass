@@ -67,5 +67,5 @@ class ConfirmEmailForm(FlaskForm):
 
 class ResetPasswordCode(FlaskForm):
     code = StringField('Password reset code', validators=[DataRequired()])
-    submit = SubmitField('Reste')
+    submit = SubmitField('Reset')
 
