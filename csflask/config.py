@@ -2,10 +2,10 @@ import os
 from decouple import config
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.environ.get('POSTGRES_DATABASE_URL')
+    SECRET_KEY = os.environ('SECRET_KEY')
+    SQLALCHEMY_DATABASE_URI = os.environ('POSTGRES_DATABASE_URL')
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('USERNAME')
-    MAIL_PASSWORD = os.environ.get('PASSWORD')
+    MAIL_USERNAME = os.environ('USERNAME')
+    MAIL_PASSWORD = os.environ('PASSWORD')
