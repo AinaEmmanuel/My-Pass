@@ -33,13 +33,13 @@ If you did not make this request please ignore this message.
 """)
     message = text(body)
     message['Subject'] = 'Password Reset Request'
-    message['From'] = os.environ('GUNMAIL_EMAIL')
+    message['From'] = os.environ['GUNMAIL_EMAIL']
     message['To'] = user.email
 
     server = smtplib.SMTP('smtp.mailgun.com', 587)
     # server.starttls()
-    server.login(os.environ('GUNMAIL_EMAIL'),os.environ('GUNMAIL_PASSWORD'))
-    server.sendmail(os.environ('GUNMAIL_EMAIL'), user.email, message.as_string())
+    server.login(os.environ['GUNMAIL_EMAIL'],os.environ['GUNMAIL_PASSWORD'])
+    server.sendmail(os.environ['GUNMAIL_EMAIL'], user.email, message.as_string())
     server.quit()
 
 
@@ -53,13 +53,13 @@ If you did not make this request please ignore this message.
 """
     message = text(body)
     message['Subject'] = 'Account confirmation code'
-    message['From'] = os.environ('GUNMAIL_EMAIL')
+    message['From'] = os.environ['GUNMAIL_EMAIL']
     message['To'] = user
 
     server = smtplib.SMTP('smtp.mailgun.com', 587)
     # server.starttls()
-    server.login(os.environ('GUNMAIL_EMAIL'),os.environ('GUNMAIL_PASSWORD'))
-    server.sendmail(os.environ('GUNMAIL_EMAIL'), user, message.as_string())
+    server.login(os.environ['GUNMAIL_EMAIL'],os.environ['GUNMAIL_PASSWORD'])
+    server.sendmail(os.environ['GUNMAIL_EMAIL'], user, message.as_string())
     server.quit()
 
     return x
@@ -78,8 +78,8 @@ If you did not make this request please ignore this message.
 
     server = smtplib.SMTP('smtp.mailgun.com', 587)
     # server.starttls()
-    server.login(os.environ('GUNMAIL_EMAIL'),os.environ('GUNMAIL_PASSWORD'))
-    server.sendmail(os.environ('GUNMAIL_EMAIL'), user, message.as_string())
+    server.login(os.environ['GUNMAIL_EMAIL'],os.environ['GUNMAIL_PASSWORD'])
+    server.sendmail(os.environ['GUNMAIL_EMAIL'], user, message.as_string())
     server.quit()
 
     return x 
