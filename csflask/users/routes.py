@@ -24,7 +24,7 @@ def register():
         x = send_confirm_email(form.email.data)
         session['ver_code'] = x
 
-        flash(f'An email has been sent to {form.email.data} for verification purpose.', 'info')
+        flash(f'An email has been sent to {form.email.data} for verification purpose. Check your spam, promotions or updates.', 'info')
         return redirect(url_for('users.verify'))
     return render_template('register.html', form=form, title='Register')
     
@@ -47,7 +47,7 @@ def verify():
             db.session.commit()
             return redirect(url_for('users.login'))
         else:
-            flash(f'Invalid verification code. Please check your email and try again', 'danger')
+            flash(f'Invalid verification code. Please check your email and try again. Check your spam, promotions or updates.', 'danger')
             return redirect(url_for('users.verify'))
     return render_template('confirm_email.html', form=form)
 
@@ -126,7 +126,7 @@ def reset_request():
         session['reset_code'] = x
 
         # send_reset_email(user)
-        flash('The Reset Code has been sent to your email', 'info')
+        flash('The Reset Code has been sent to your email. Check your spam, promotions or updates.', 'info')
         return redirect(url_for('users.reset_code'))
     return render_template('reset_request.html', form=form, title='Request Code')
 
@@ -142,7 +142,7 @@ def reset_code():
             flash(f'Password Reset Successfuly', 'success')
             return redirect(url_for('users.reset_password'))
         else:
-            flash(f'Invalid verification code. Please check your email and try again', 'danger')
+            flash(f'Invalid verification code. Please check your email and try again. Check your spam, promotions or updates.', 'danger')
             return redirect(url_for('users.reset_code'))
     return render_template('reset_code.html', form=form)
 
