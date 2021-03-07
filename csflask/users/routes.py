@@ -42,7 +42,7 @@ def verify():
             passw = session.get('curr_pass', None)
             name = session.get('curr_name', None)
 
-            user = User(username=name, email=mail, password=passw)
+            user = User(username=name, email=mail.lower(), password=passw)
             db.session.add(user)
             db.session.commit()
             return redirect(url_for('users.login'))
@@ -57,7 +57,8 @@ def login():
         return redirect(url_for('main.mypasswords'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        email=form.email.data
+        user = User.query.filter_by(email=email.lower()).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')

@@ -11,7 +11,7 @@ from email.mime.text import MIMEText as text
 from decouple import config
 
 def save_picture(form_picture):
-    random_name = secrets.token_hex(8)
+    random_name = secrets.token_hex(5)
     _,file_extension = os.path.splitext(form_picture.filename)
     picture_filename = random_name + file_extension
     picture_path = os.path.join(current_app.root_path, 'static/img', picture_filename)
@@ -44,7 +44,7 @@ If you did not make this request please ignore this message.
 
 
 def send_confirm_email(user):
-    x = randint(10000,99999)
+    x = randint(100000,999999)
     body = f""" Your verification code is
 {x}
 Thank you for registering.
