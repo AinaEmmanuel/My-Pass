@@ -44,7 +44,7 @@ If you did not make this request please ignore this message.
 
 
 def send_confirm_email(user):
-    x = randint(10000,99999)
+    x = randint(100000,999999)
     body = f""" Your verification code is
 {x}
 Thank you for registering.
