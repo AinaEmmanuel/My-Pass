@@ -42,7 +42,7 @@ def verify():
             passw = session.get('curr_pass', None)
             name = session.get('curr_name', None)
 
-            user = User(username=name, email=mail, password=passw)
+            user = User(username=name, email=mail.lower(), password=passw)
             db.session.add(user)
             db.session.commit()
             return redirect(url_for('users.login'))
