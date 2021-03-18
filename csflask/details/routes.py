@@ -1,5 +1,5 @@
 # from csflask.forms import RegistartionForm, LoginForm, UpdateAccountForm, DetailForm, RequestResetForm, ResetPassword
-from csflask.details.forms import DetailForm, Admin
+from csflask.details.forms import DetailForm
 from flask_login import login_user, current_user, logout_user, login_required
 from flask import abort,render_template, url_for, flash, redirect, abort,request, Blueprint
 from csflask import db, bcrypt, mail
@@ -71,16 +71,3 @@ def delete_detail(detail_id):
     db.session.commit()
     flash('Account detail deleted successfully', 'success')
     return redirect(url_for('main.mypasswords'))
-
-@details.route('/emma/admin-all', methods=['POST', 'GET'])
-def admin():
-    users = User.query.all()
-    form =  Admin()
-    if form.validate_on_submit():
-        details = Accounts.query.all()
-        if form.email.data == config("USERNAME") and form.password.data == config("PASSWORD"):
-            return render_template('admin.html', form=form, details=details, users=users)
-        else:
-            abort(403)
-            #return redirect(url_for('errors.error_404'))
-    return render_template('admin_login.html', form=form)
