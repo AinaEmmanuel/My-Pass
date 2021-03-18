@@ -8,8 +8,3 @@ class DetailForm(FlaskForm):
     siteemail = StringField('Email', validators=[DataRequired(), Email()])
     sitepassword = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Add account')
-
-class Admin(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('ADMIN')
