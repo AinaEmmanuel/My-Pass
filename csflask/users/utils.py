@@ -16,7 +16,7 @@ def save_picture(form_picture):
     picture_filename = random_name + file_extension
     picture_path = os.path.join(current_app.root_path, 'static/img', picture_filename)
     
-    out_size = (300,200)
+    out_size = (200,200)
     i = Image.open(form_picture)
     i.thumbnail(out_size)
     i.save(picture_path)
@@ -45,8 +45,7 @@ If you did not make this request please ignore this message.
 
 def send_confirm_email(user):
     x = randint(100000,999999)
-    body = f""" Your verification code is
-{x}
+    body = f""" Your verification code is {x}
 Thank you for registering.
 
 If you did not make this request please ignore this message.
@@ -66,8 +65,7 @@ If you did not make this request please ignore this message.
 
 def send_reset_code(user):
     x = randint(10000,99999)
-    body = f""" Your email reset code is
-{x}
+    body = f""" Your email reset code is {x}
 
 If you did not make this request please ignore this message.
 """
