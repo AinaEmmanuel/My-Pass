@@ -3,7 +3,7 @@
     {% for detail in details.items %}
     {% if detail.creator == current_user %}
     <article class="media content-section">
-        <img src="{{ url_for('static', filename='img/' + detail.creator.image_file)}}" class="rounded-circle article-img" alt="">
+        <a href='http://mypass.icu/myaccount'><img src="{{ url_for('static', filename='img/' + detail.creator.image_file)}}" class="rounded-circle article-img" alt=""></a>
         <div class="media-body">
             <div class="article-metadata">
                 <p class='mr-2' href='#'>Username: {{ detail.account_name }} </p>
