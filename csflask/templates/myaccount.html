@@ -2,7 +2,7 @@
 {% block content%}
     <div class="content-section">
         <div class="media">
-            <img class="rounded-circle account-img" alt="profile_pic" src="{{ image_file }}">
+            <a href='http://mypass.icu/myaccount'><img class="rounded-circle account-img" alt="profile_pic" src="{{ image_file }}"></a>
             <div class="media-body">
                 <h2 class="account=-heading"> {{ current_user.username }} </h2>
                 <p class="text-secondary"> {{ current_user.email }} <img class="rounded-circle" alt="verified-badge" src="{{ url_for('static', filename='img/verified.jpg') }}" width="30" height="30"></p>
