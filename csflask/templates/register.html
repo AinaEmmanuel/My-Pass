@@ -30,7 +30,7 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.email(class='form-control form-control-md', placeholder='johnsmith@email.com') }}
+                    {{ form.email(class='form-control form-control-md', placeholder='johnsmith@email.com',onkeyup="return forceLower(this);") }}
                 {% endif %}
             </div>
 
