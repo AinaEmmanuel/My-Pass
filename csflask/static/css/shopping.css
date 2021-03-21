@@ -51,6 +51,9 @@ div.animated:hover {
   width: 300px;
   transition-timing-function: ease-out;
 }
+.low{
+  text-transform: lowercase;
+}
 
 /*!
  * Bootstrap v3.3.5 (http://getbootstrap.com)
