@@ -40,3 +40,8 @@ function stogglepass() {
 		pass.type = 'text'
 
 }
+
+function forceLower(strInput) 
+{
+strInput.value=strInput.value.toLowerCase();
+}​
