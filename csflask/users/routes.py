@@ -17,11 +17,11 @@ def register():
         hashed_pass = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         # user = User(username=form.username.data, email=form.email.data, password=hashed_pass)
 
-        session['curr_mail'] = form.email.data
+        session['curr_mail'] = form.email.data.lower()
         session['curr_name'] = form.username.data
         session['curr_pass'] = hashed_pass
 
-        x = send_confirm_email(form.email.data)
+        x = send_confirm_email(form.email.data.lower())
         session['ver_code'] = x
 
         flash(f'An email has been sent to {form.email.data} for verification purpose. Check your spam, promotions or updates.', 'info')
