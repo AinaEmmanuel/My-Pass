@@ -24,7 +24,7 @@ def register():
         x = send_confirm_email(form.email.data.lower())
         session['ver_code'] = x
 
-        flash(f'An email has been sent to {form.email.data} for verification purpose. Check your spam, promotions or updates.', 'info')
+        flash(f'An email has been sent to {form.email.data.lower()} for verification purpose. Check your spam, promotions or updates.', 'info')
         return redirect(url_for('users.verify'))
     return render_template('register.html', form=form, title='Register')
     
