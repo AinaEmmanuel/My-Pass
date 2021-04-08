@@ -8,14 +8,14 @@
             <div class="form-group">
                 {{ form.email.label(class='form-control-label') }}
                 {% if form.email.errors %}
-                    {{ form.email(class='form-control form-control-md is-invalid', placeholder='johnsmith@email.com') }}
+                    {{ form.email(class='form-control form-control-md is-invalid low', placeholder='johnsmith@email.com') }}
                     <div class="invalid-feedback">
                         {% for error in form.email.errors %}
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.email(class='form-control form-control-md', placeholder='johnsmith@email.com') }}
+                    {{ form.email(class='form-control form-control-md low', placeholder='johnsmith@email.com') }}
                 {% endif %}
             </div>
 
